@@ -1,0 +1,440 @@
+%-------------------------
+% A LaTeX resumé
+% Author : Loredana Sandu
+% Based off of: https://github.com/nanup/Rezume
+%-------------------------
+
+
+
+%------------PACKAGES----------------
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{verbatim} % reimplements the "verbatim" and "verbatim*" environments
+
+\usepackage{titlesec} % provides an interface to sectioning commands i.e. custom elements
+
+\usepackage{color} % provides both foreground and background color management
+
+\usepackage{enumitem} % provides control over enumerate, itemize and description
+
+\usepackage{fancyhdr} % provides extensive facilities for constructing headers, footers and also controlling their use
+
+\usepackage{tabularx} % defines an environment tabularx, extension of "tabular" with an extra designator x, paragraph like column whose width automatically expands to fill the width of the environment
+
+\usepackage{latexsym} % provides mathematical symbols
+
+\usepackage{marvosym} % provides martin vogel's symbol font which contains various symbols
+
+\usepackage[empty]{fullpage} % sets margins to one inch and removes headers, footers etc..
+
+\usepackage[hidelinks]{hyperref} % removes color and shadow of hyperlinks
+
+\usepackage[normalem]{ulem} % provides "\ul" (uline) command which will break at line breaks
+
+\usepackage[english]{babel} % provides culturally determined typographical rules for wide range of languages
+
+\usepackage[document]{ragged2e} % provides commands to control the raggedness of the right and left margins
+
+\usepackage[none]{hyphenat} % provides commands to control the hyphenation of text, removes hyphenation
+
+\usepackage{enumitem} % provides control over enumerate, itemize and description
+
+\usepackage{ulem} % provides commands for underlining text
+
+\usepackage{xcolor} % provides commands for color management
+
+\usepackage{makecell} % provides commands for cell management in tables
+
+\usepackage{multirow} % provides commands for multirow management in tables
+%-----------------------------------------
+
+%----------COLORED UNDERLINES-------------------
+\makeatletter
+  \UL@protected\def\graydotuline{\leavevmode \bgroup     % define a new command \graydotuline that will be ub sed to underline text with gray dotted lines
+    \UL@setULdepth
+    \ifx\UL@on\UL@onin \advance\ULdepth\p@\fi
+    \markoverwith{\begingroup
+       %\advance\ULdepth0.08ex 
+       \lower2.5pt\hbox{\kern.04em \textcolor{black!50}{.}\kern.04em}%
+       \endgroup}%
+    \ULon}
+\makeatother
+%-----------------------------------------
+
+\input glyphtounicode % converts glyph names to unicode
+\pdfgentounicode=1 % ensures pdfs generated are ats readable
+
+%----------FONT OPTIONS-------------------
+\usepackage[default]{sourcesanspro} % uses the font source sans pro
+\urlstyle{same} % changes url font from default urlfont to font being used by the document
+%-----------------------------------------
+
+
+%----------MARGIN OPTIONS-----------------
+\pagestyle{fancy} % set page style to one configured by fancyhdr
+\fancyhf{} % clear all header and footer fields
+
+\renewcommand{\headrulewidth}{0in} % sets thickness of linerule under header to zero
+\renewcommand{\footrulewidth}{0in} % sets thickness of linerule over footer to zero
+
+\setlength{\tabcolsep}{0in} % sets thickness of column separator in tables to zero
+
+% origin of the document is one inch from the top and from and the left
+% oddsidemargin and evensidemargin both refer to the left margin
+% right margin is indirectly set using oddsidemargin
+\usepackage{geometry}
+\geometry{left=2.5cm, top=2cm, right=2.5cm, bottom=2cm, footskip=.5cm}
+
+\raggedbottom{} % makes all pages the height of current page, no extra vertical space added
+\raggedright{} % makes all pages the width of current page, no extra horizontal space added
+%------------------------------------------
+
+
+%--------SECTIONING COMMANDS---------
+% \titleformat{<command>}
+%   [<shape>]{<format>}{<label>}{<sep>}
+%     {<before-code>}[<after-code>]
+
+% command is the sectioning command to be redefined
+% shape is the style of the font; scshape stands for small caps style
+% format is the format to be applied to whole title- label and text; absent here
+% label defines the label
+% sep is the horizontal separation between label and title body
+% before-code is the code to be executed before
+% after-code is the code to be executed after
+
+\titleformat{\section}
+  {\scshape\large}{}
+    {0em}{\color{blue}}[\color{black}\titlerule\vspace{0pt}]
+%-------------------------------------
+
+
+%--------REDEFINITIONS----------------
+% redefines the style of the bullet point
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+% redefines the underline depth to 2pt
+\renewcommand{\ULdepth}{2pt}
+%-------------------------------------
+
+
+%--------CUSTOM COMMANDS--------------
+%\vspace{} defines a vertical space of given size, modifying this in custom commands can help stretch or shrink resume to remove or add content
+
+% resumeItem renders a bullet point
+\newcommand{\resumeItem}[1]{
+  \item\small{#1}
+}
+
+% commands to start and end itemization of resumeItem, rightmargin set to 0.11in to avoid the overflow of resumetItem beyond whatever resumeItemHeading is being used
+\newcommand{\resumeItemListStart}{\begin{itemize}[rightmargin=0.11in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% resumeSectionType renders a bolded type to be used under a section, used as skill type here, middle element is used to keep ":"s in the same vertical line
+
+\setlength{\tabcolsep}{5pt}
+
+\newcommand{\resumeSectionTypeOne}[2]{
+  \item\begin{tabular*}{0.99\textwidth}[t]{
+    p{0.18\linewidth}p{0.81\linewidth}
+  }
+  \textbf{#1} & #2
+  \end{tabular*}\vspace{-2pt}
+}
+
+\newcommand{\resumeSectionTypeTwo}[3]{
+  \item\begin{tabular*}{0.99\textwidth}[t]{
+    p{0.18\linewidth}p{0.81\linewidth}
+  }
+  \multirow{2}{0.20\linewidth}{\textbf{#1}} & #2 \\
+                                            & #3
+  \end{tabular*}\vspace{-2pt}
+}
+
+
+% resumeTrioHeading renders three elements in three columns with second element being italicized and first element bolded, can be used for projects with three elements
+\newcommand{\resumeTrioHeading}[3]{
+  \item
+    \begin{tabular*}{0.96\textwidth}[t]{
+      l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r
+    }
+      \textbf{#1} & \small \textit{#2} & \small #3
+    \end{tabular*}
+}
+
+% resumeQuadHeading renders four elements in a two columns with the second row being italicized and first element of first row bolded, can be used for experience and projects with four elements
+\newcommand{\resumeQuadHeading}[4]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & \small #2 \\
+    \small#3 & \small #4 \\
+  \end{tabular*}
+}
+
+% resumeQuadHeadingChild renders the second row of resumeQuadHeading, can be used for experience if different roles in the same company need to added
+\newcommand{\resumeQuadHeadingChild}[2]{
+  \item
+  \begin{tabular*}{0.96\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    \textbf{#1} & {\small#2} \\
+  \end{tabular*}
+}
+
+% commands to start and end itemization of resumeQuadHeading, lefmargin for left indent of 0.15in for resumeItems
+\newcommand{\resumeHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+\newcommand{\resumeHeadingListEnd}{\end{itemize}}
+%-------------------------------------------
+
+%---------- Icons --------------------
+\usepackage{fontawesome}
+%-------------------------------------
+
+
+%__________________RESUME____________________
+% You can rearrange sections in any order you may prefer
+\begin{document}
+
+%-----------CONTACT DETAILS------------------
+\begin{center}
+    {\Huge Loredana Sandu \vspace{2pt}} \\[1.25pc]
+    \href{https://loredanasandu.com}{\faLink \ \graydotuline{loredanasandu.com}} \ $|$ \ % row = 2, col = 1
+    \href{https://www.linkedin.com/in/loredana-sandu/}{\faLinkedinSquare \ \graydotuline{loredana-sandu}} \ $|$ \ % row = 2, col = 1
+    \href{https://www.github.com/loredanasandu}{\faGithub \ \graydotuline{loredanasandu}} \\[0.1pc] % row = 2, col = 1
+    \href{mailto:loredana@loredanasandu.com}{\faEnvelope \ \graydotuline{loredana@loredanasandu.com}} \ $|$ \ % row = 2, col = 1
+    %\href{mailto:sandu.loredana@outlook.com}{\faEnvelope \ \graydotuline{sandu.loredana@outlook.com}} \ $|$ \ % row = 2, col = 1
+    \faHome \ Barcelona \\[1.5pc] % row = 2, col = 1
+\end{center}
+%-------------------------------------------
+
+%-----------------DESCRIPTION-------------------
+\begin{justify}
+    Undergraduate student of Mathematics, an avid learner with a highly curious nature and entrepreneurial spirit. Fond of intellectual challenges from early ages, I have developed a passion about programming and the applications of mathematics, especially in the fields of artificial intelligence and data science. Proficient in spoken and written English.
+\end{justify}
+
+%-----------------------------------------------
+
+
+%-----------EDUCATION-------------------------
+\section{Education}
+    \resumeHeadingListStart{}
+      \resumeQuadHeading{Bachelor's Degree in Mathematics}{September 2019 – July 2023}
+      {Autonomous Univeristy of Barcelona}{Barcelona, Spain}
+      \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+          \item \small At the moment, I have passed 213 ECTS and I am enrolled for 30 ECTS, including an Internship and the Bachelor's Thesis.
+          \item \small Current GPA: 7.33 / 10.00
+          \item \small Currently conducting research for my thesis under the supervision of \href{https://www.uab.cat/web/el-departament/pilar-dellunde-1260171823608.html}{\graydotuline{Dr. Pilar Dellunde}}. Focusing on the use of fuzzy-logical operators to develop interpretable neural network models.
+          \item \small Studied at the University of Vienna as part of the Erasmus+ exchange program.
+          \item \small As a remark, I achieved a honorable mention in the course \textit{Computational Tools for Mathematics} (grade: 9.70 / 10.00). 
+      \end{itemize}
+    \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Erasmus+ exchange program, Mathematics}{September 2022 – February 2023}
+    {University of Vienna}{Vienna, Austria}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+        \item \small As part of the Erasmus+ Exchange Programme.  
+        \item \small GPA: 8.43 / 10.00 (equivalence in the Spanish grading system)
+    \end{itemize}
+  \resumeHeadingListEnd{}
+  
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Baccalaureate (with Honors)}{September 2017 – May 2019}
+    {Gallecs High School}{Barcelona, Spain}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small GPA: 10.00 / 10.00
+      \item \small Research project: "Study on the evolution of the labour market in Spain during the decade following the 2008 economic recession" (grade: 10.00 / 10.00).
+      \item \small Achieved a grade of 13.76 / 14.00 in the University entrance exams (PAU).
+    \end{itemize}
+  \resumeHeadingListEnd{}
+%---------------------------------------------
+
+
+%-----------EXPERIENCE-----------------------
+\section{Experience}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Research Intern}{March 2023 – Present}
+    {Centre for Research in Agricultural Genomics (CRAG)}{Barcelona, Spain}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Intern in the \textit{Rosaceae genetics and genomics} group, part of the Research program on Plant and Animal Genomics.
+      \item \small Working on the development of deep learning models with applications for fruit genomics. Developing hybrid models of Convolutional Neural Networks (CNNs) and Feed Forward Neural Networks (FFNNs) to extract patterns of SNPs and predict quantitative traits.
+      \item \small Exploring other deep learning architectures such as Recurrent Neural Networks (RNNs), Long Short-Term Memory (LSTM), Autoencoders (AEs), Generative Adversarial Networks (GANs), and Transformer models.
+    \end{itemize}
+  \resumeHeadingListEnd{}
+
+  \newpage %%%
+  
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Private Programming Tutor}{July 2020 – July 2022}
+    {Self-employed}{Remote}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Taught Python, C and SQL remotely to teenage and adult students.
+      \item \small The classes were focused on libraries like Pandas, Matplotlib, scikit-learn and Pytorch, and tools like Jupyter Notebook, Git, and Json. I also included the use of frameworks like Django, and databases like MySQL.
+      \item \small Most students were located in the United Kingdom, Germany and Spain. Occasionaly, I also worked with students from the United States and Ecuador.
+      \item \small Emphasized practical use cases in the areas of data science, machine learning, and APIs.
+    \end{itemize}
+  \resumeHeadingListEnd{}
+%---------------------------------------------
+
+
+
+%-----------PROJECTS--------------------------
+\section{Selected Projects and Reports}
+  \resumeHeadingListStart{}
+  \resumeQuadHeading{\href{https://github.com/loredanasandu/sir-branching-processes}{Extending the SIR model through Branching Processes}}{February 2023}{\small Mathematical Modeling, Stochastic Processes, Python, Academic writing}{\href{https://github.com/loredanasandu/sir-branching-processes/blob/main/Report_Extending-the-SIR-model-through-BP.pdf}{\faFileTextO \ \graydotuline{Report}} \ $|$ \ \href{https://github.com/loredanasandu/sir-branching-processes/blob/main/Code_Extending-the-SIR-model-through-BP.ipynb}{\faGithub \ \graydotuline{Code}}}
+  \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+    \item \small Modeled the spread of an infection through a population with two types of individuals: those with a high number of social contacts and those with a low number of social contacts.
+    \item \small Performed numerical and stochastic simulations using Python, based on previous mathematical analysis.
+    \item \small Wrote a report on the development and mathematical analysis of the model, and the results of the simulations.
+    \item \small Project conducted as part of the course \textit{Modeling in evolutionary ecology and epidemiology} at the University of Vienna, co-authored with Aäron Roex.
+    \item \small Advised by \href{https://ufind.univie.ac.at/en/person.html?id=110430}{\graydotuline{Himani Sachdeva}} and \href{https://mabshtml.univie.ac.at/polechova/}{\graydotuline{Jitka Polechová}}.
+  \end{itemize}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://github.com/loredanasandu/bird-flocks-simulation}{Simulation of the flocking behavior of birds}}{June 2021}{Mathematical Modeling, Python, GnuPlot, Git, Academic Writing}{\href{https://github.com/loredanasandu/bird-flocks-simulation/blob/main/report.pdf}{\faFileTextO \ \graydotuline{{Report \scriptsize (in Catalan)}}} \ $|$ \ \href{https://github.com/loredanasandu/bird-flocks-simulation}{\faGithub \ \graydotuline{Code}}}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Modeled the flocking behavior of birds, and the effect of the presence of elements such as food sources and predators on the flock.
+      \item \small Developed a program using Python and GnuPlot to run the simulation.
+      \item \small Wrote a report on the development and implementation of the model, and the results of the simulations.
+      \item \small Project conducted as part of the course \textit{Workshop in Mathematical Modelling} at the Autonomous University of Barcelona, co-authored with \href{https://www.linkedin.com/in/anna-danot-14a10b252}{\graydotuline{Anna Danot}}, Núria Fernández and \href{https://www.linkedin.com/in/jan-mousavi-facundo/}{\graydotuline{Jan Mousavi}}.
+      \item \small Advised by \href{https://mat.uab.cat/departament/uab/pop_ex.php?id=172&lang=cat}{\graydotuline{Julià Cufí}} and \href{https://mat.uab.cat/departament/uab/pop_ex.php?id=208&lang=}{\graydotuline{Xavier Mora}}.
+    \end{itemize}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://github.com/loredanasandu/digit-recognition-pytorch}{Digit Recognition}}{May 2021}{Python, Deep Learning, PyTorch}{\href{https://github.com/loredanasandu/digit-recognition-pytorch}{\faGithub \ \graydotuline{Source code}}}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Logistic regression model that classifies handwritten digits.
+      \item \small Accuracy: 90.27\%.
+    \end{itemize}
+\resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://github.com/loredanasandu/pillow-tesseract-opencv}{Face Recognition}}{March 2021}{Python, Computer Vision, Numpy, OpenCV, Pillow, Tesseract}{\href{https://github.com/loredanasandu/pillow-tesseract-opencv}{\faGithub \ \graydotuline{Source code}}}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Program that recognizes faces of an image. Tested with newspapers.
+      \item \small Capstone Project for the \textit{Python 3 Programming Specialization} by the University of Michigan.
+    \end{itemize}
+  \resumeItemListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://github.com/loredanasandu/cone-classification}{Classification of Convex Cones}}{May 2020}{C, Abstract Algebra}{\href{https://github.com/loredanasandu/cone-classification}{\faGithub \ \graydotuline{Source code}}}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Program that classifies the convex cone generated by input vectors in the 3-dimensional real vector space.
+      \item \small Project developed as part of the course \textit{Computational Tools for Mathematics} at the Autonomous University of Barcelona.
+      \item \small Advised by \href{https://mat.uab.cat/geoarit/index.php/people?controller=member&view=member&id=1}{\graydotuline{Joaquim Roé}}.
+    \end{itemize}
+  \resumeItemListEnd{}
+
+%--------------------------------------------
+
+
+%----------------COURSES AND CERTIFICATES----------------------
+\section{Courses and Certificates}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://www.coursera.org/account/accomplishments/verify/ZNTSZQQ9TLQK}{SQL for Data Science}}{July 2021}{University of California, Davis}{\ }
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://www.coursera.org/account/accomplishments/specialization/WMG73QR4GJLH}{Python 3 Programming Specialization}}{July 2021}{University of Michigan}{\ }
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Certificate of Proficiency in English (CPE)}{July 2020}{University of Cambridge}{\ }
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{C Programming Course}{May 2016}{Mollet's Informatics Center}{\ }
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+
+%--------------SKILLS------------------------
+\section{Skills}
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Industry knowledge}{Programming \ $|$ \ Mathematical Modeling \ $|$ \ Data Science \ $|$ \ Machine Learning \ $|$ \ Deep Learning \ $|$ \ Data Analysis}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeSectionTypeTwo{Programming Languages}{\textit{\small Experienced:}\: Python \ $|$ \ C \ $|$ \ SQL \ $|$ \ R \ $|$ \ AMPL \ $|$ \ HTML \ $|$ \ CSS \ $|$ \ \LaTeX}{\textit{\small Familiar:}\:  C++ \ $|$ \ MATLAB \ $|$ \ JavaScript \ $|$ \ Solidity}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Libraries and Frameworks}{PyTorch \ $|$ \ scikit-learn \ $|$ \ Pandas \ $|$ \ Numpy \ $|$ \ Matplotlib \ $|$ \ Seaborn \ $|$ \ Django \ $|$ \ OpenCV \ $|$ \ Pillow \ $|$ \ Tesseract}
+  \resumeHeadingListEnd{}
+  
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Tools and Platforms}{Jupyter Notebook \ $|$ \ Anaconda \ $|$ \ Git \ $|$ \ SageMath \ $|$ \ Heroku \ $|$ \ Digital Ocean \ $|$ \ Wordpress}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Soft Skills and Others}{Resourceful \ $|$ \ Innovative \ $|$ \ Curious \ $|$ \ Committed \ $|$ \ Persistent \ $|$ \ Fast Learner \ $|$ \ Problem Solving \ $|$ \ Lively }
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+%--------------LANGUAGES------------------------
+\section{Languages}
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{English}{Proficient (Level C2)}
+    \resumeSectionTypeOne{Spanish}{Native}
+    \resumeSectionTypeOne{Catalan}{Native}
+    \resumeSectionTypeOne{Romanian}{Intermediate}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+%--------------PARTICIPATION IN HACKATHONS----------------
+\section{Participation in Hackathons}
+  \resumeHeadingListStart{}
+    \resumeTrioHeading{Datathon by Aily Labs}{}{June 11 – June 12, 2022 \ $|$ \ Barcelona, Spain}
+      \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+        \item \small Gained knowledge on the applications of artificial intelligence in the health sector.
+        \item \small Worked on a project for the detection of glaucoma in retinal images, using computer vision techniques and CNNs.
+      \end{itemize}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeTrioHeading{HackUPC 2022}{}{April 29 – May 1, 2022 \ $|$ \ Barcelona, Spain}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Gained knowledge and experience in the fields of computer vision and game autoplayers.
+      \item \small Participated in events related to cybersecurity and algorithms.
+    \end{itemize}
+  \resumeHeadingListEnd{}
+  
+%--------------------------------------------
+
+%----------------AWARDS AND ACHIEVEMENTS----------------------
+\section{Awards and Achievements}
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{Recognition of excellence at the University entrance exams (PAU)}{July 2019}{Interuniversity Council of Catalonia (CIC), Generalitat de Catalunya}{\ }
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small These distinctions are awarded to students in Catalonia who, in the June ordinary sitting, have obtained a grade equal to or higher than 9.00/10.00 points as a qualification for the general phase of the University entrance exams (PAU).
+    \end{itemize}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{2nd place at a regional chess tournament}{May 2015}{Granollers Chess Club}{\ }
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small I had an interest in chess at early ages and played in several regional tournaments.
+    \end{itemize}
+  \resumeHeadingListEnd{}
+%--------------------------------------------
+
+%----------------OTHER----------------------
+\section{Other}
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Interests}{Philosophy \ $|$ \ General Science \ $|$ \ Literature \ $|$ \ Writing \ $|$ \ Calisthenics \ $|$ \ Swimming \ $|$ \ Botany \ $|$ \ Classical music and guitar}
+  \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeSectionTypeOne{Driving licenses}{A2 \ $|$ \ B}
+  \resumeHeadingListEnd{}
+
+
+
+%----------------OTHERS----------------------
+% You can add your acheivements, accolades, certifications etc. here.
+
+%--------------------------------------------
+
+\end{document}
