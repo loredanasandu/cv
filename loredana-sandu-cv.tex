@@ -83,7 +83,7 @@
 % oddsidemargin and evensidemargin both refer to the left margin
 % right margin is indirectly set using oddsidemargin
 \usepackage{geometry}
-\geometry{left=1.75cm, top=1.5cm, right=1.75cm, bottom=1.5cm, footskip=.5cm}
+\geometry{left=1.75cm, top=1.25cm, right=1.75cm, bottom=1.25cm, footskip=.5cm}
 
 \raggedbottom{} % makes all pages the height of current page, no extra vertical space added
 \raggedright{} % makes all pages the width of current page, no extra horizontal space added
@@ -102,6 +102,9 @@
 % sep is the horizontal separation between label and title body
 % before-code is the code to be executed before
 % after-code is the code to be executed after
+
+\titlespacing*{\section}
+{0pt}{2.75ex plus 1ex minus .2ex}{2.25ex plus .2ex}
 
 \titleformat{\section}
   {\scshape\large}{}
@@ -197,7 +200,7 @@
 
 %-----------CONTACT DETAILS------------------
 \begin{center}
-    {\Huge Loredana Sandu \vspace{2pt}} \\[1.25pc]
+    {\Huge Loredana Sandu } \\[1.2pc]
     \href{https://loredanasandu.github.io/}{\faLink \ \graydotuline{loredanasandu.github.io}} \, $|$ \, % row = 2, col = 1
     \href{https://www.linkedin.com/in/loredana-sandu/}{\faLinkedinSquare \ \graydotuline{loredana-sandu}} \, $|$ \, % row = 2, col = 1
     \href{https://www.github.com/loredanasandu}{\faGithub \ \graydotuline{loredanasandu}} \\[0.1pc] % row = 2, col = 1
@@ -217,6 +220,7 @@
 
 
 %-----------EDUCATION-------------------------
+
 \section{Education}
   \resumeHeadingListStart{}
   \resumeQuadHeading{Master's Degree in Computational and Mathematical Engineering}{September 2023 – ongoing}
@@ -277,7 +281,7 @@
 
 
 %-----------PROJECTS--------------------------
-\section{Selected Projects and Reports}
+\section{Selected Reports, Talks and Projects}
   \resumeHeadingListStart{}
   \resumeQuadHeading{\href{https://github.com/loredanasandu/sir-branching-processes}{Extending the SIR model through Branching Processes}}{February 2023}{\small Mathematical Modeling, Stochastic Processes, Python, Academic writing}{\href{https://github.com/loredanasandu/sir-branching-processes/blob/main/Report_Extending-the-SIR-model-through-BP.pdf}{\faFileTextO \ \graydotuline{Report}} \ $|$ \ \href{https://github.com/loredanasandu/sir-branching-processes/blob/main/Code_Extending-the-SIR-model-through-BP.ipynb}{\faGithub \ \graydotuline{Code}}}
   \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
@@ -286,6 +290,15 @@
     \item \small Advised by \href{https://ufind.univie.ac.at/en/person.html?id=110430}{\graydotuline{Dr. Himani Sachdeva}} and \href{https://mabshtml.univie.ac.at/polechova/}{\graydotuline{Dr. Jitka Polechová}}.
   \end{itemize}
   \resumeHeadingListEnd{}
+
+  \resumeHeadingListStart{}
+    \resumeQuadHeading{\href{https://github.com/loredanasandu/seminar-talk-biomathematics/blob/main/SanduLoredana_Presentation_SE_Biomathematics-Seasonally_fluctuating_selection_and_polymorphism.pdf}{Seasonally fluctuating selection can maintain polymorphism}}{January 2022}{Research Talk, Public Speaking, Mathematical Analysis}{\href{https://github.com/loredanasandu/seminar-talk-biomathematics/blob/main/SanduLoredana_Presentation_SE_Biomathematics-Seasonally_fluctuating_selection_and_polymorphism.pdf}{\faFileTextO \ \graydotuline{Slides}}}
+    \begin{itemize}[leftmargin=3em, itemsep=0.1em, topsep=2pt]
+      \item \small Seminar talk delivered as part of the \textit{Seminar in Biomathematics} at the University of Vienna.
+      \item \small Presented insights into how seasonally fluctuating selection can lead to the maintenance of genetic variation in natural populations, delving into the mathematical aspects and the underlying biological implications.
+      \item \small Advised by \href{https://ufind.univie.ac.at/en/person.html?id=33917}{\graydotuline{Prof. Joachim Hermisson}}.
+    \end{itemize}
+  \resumeItemListEnd{}
 
   \resumeHeadingListStart{}
     \resumeQuadHeading{\href{https://github.com/loredanasandu/bird-flocks-simulation}{Simulation of the flocking behavior of birds}}{June 2021}{Mathematical Modeling, Python, GnuPlot, Git, Academic Writing}{\href{https://github.com/loredanasandu/bird-flocks-simulation/blob/main/report.pdf}{\faFileTextO \ \graydotuline{{Report \scriptsize (in Catalan)}}} \ $|$ \ \href{https://github.com/loredanasandu/bird-flocks-simulation}{\faGithub \ \graydotuline{Code}}}
@@ -305,11 +318,12 @@
     \end{itemize}
   \resumeItemListEnd{}
 
+
 %--------------------------------------------
 
 
 %----------------COURSES AND CERTIFICATES----------------------
-\section{Courses and Certificates}
+\section{Selected Courses and Certificates}
   \resumeHeadingListStart{}
     \resumeQuadHeading{\href{https://www.coursera.org/account/accomplishments/verify/ZNTSZQQ9TLQK}{SQL for Data Science}}{July 2021}{University of California, Davis}{\ }
   \resumeHeadingListEnd{}
